@@ -7,18 +7,39 @@
 import SwiftUI
 
 struct WeatherBrowserView: View {
+    
+    @StateObject var viewModel: WeatherViewModel
+    
     @State private var searchText: String = ""
-    @State private var currentWeather = weatherMock  
+    
+    private var currentWeather: WeatherModel? {
+        viewModel.weather
+    }
     
     var body: some View {
         VStack {
+            
+            HStack{
+                Text("How's the Weather?")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top, 20)
+                
+                Spacer()
+            }
+            
             HStack{
                 TextField("Search City", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
+                    .submitLabel(.search)
+                    .onSubmit {
+                        viewModel.getWeather(for: searchText)
+                    }
                 
                 Button(action: { 
-                    searchForCity()
+                    //searchForCity()
+                    viewModel.getWeather(for: searchText)
                 }) {
                     Text("Search")
                         .padding(.horizontal)
@@ -29,20 +50,20 @@ struct WeatherBrowserView: View {
                 }
             }
             // City name
-            Text(currentWeather.name)
+            Text(currentWeather?.name ?? weatherDefault.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 20)
 
             // Temperature
-            Text("\(Int(currentWeather.temp))°F")
+            Text("\(Int(currentWeather?.temp ?? weatherDefault.temp))°F")
                 .font(.system(size: 70))
                 .fontWeight(.thin)
                 .foregroundColor(.red)
             
             // weather icon and description
             HStack {
-                if let url = URL(string: currentWeather.iconImageUrl) {
+                if let url = URL(string: currentWeather?.iconImageUrl ?? weatherDefault.iconImageUrl) {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
@@ -52,17 +73,17 @@ struct WeatherBrowserView: View {
                     }
                 }
 
-                Text(currentWeather.description)
+                Text(currentWeather?.description ?? weatherDefault.description)
                     .font(.title3)
                     .foregroundColor(.green)
             }
 
             // More info about the weather
             HStack {
-                Text("Max: \(Int(currentWeather.maxTemp))°F")
+                Text("Max: \(Int(currentWeather?.maxTemp ?? weatherDefault.maxTemp))°F")
                     .font(.title3)
                 Spacer()
-                Text("Min: \(Int(currentWeather.minTemp))°F")
+                Text("Min: \(Int(currentWeather?.minTemp ?? weatherDefault.minTemp))°F")
                     .font(.title3)
             }
             .padding(.horizontal, 20)
@@ -71,7 +92,7 @@ struct WeatherBrowserView: View {
             VStack {
                 Text("Feels like")
                     .font(.headline)
-                Text("\(Int(currentWeather.feelsLikeTemp))°F")
+                Text("\(Int(currentWeather?.feelsLikeTemp ?? weatherDefault.feelsLikeTemp))°F")
                     .font(.system(size: 50))
                     .foregroundColor(.blue)
             }
@@ -81,7 +102,7 @@ struct WeatherBrowserView: View {
             HStack {
                 VStack {
                     Text("Humidity")
-                    Text("\(Int(currentWeather.humidity))%")
+                    Text("\(Int(currentWeather?.humidity ?? weatherDefault.humidity))%")
                         .font(.title2)
                 }
                 .frame(maxWidth: .infinity)
@@ -89,7 +110,7 @@ struct WeatherBrowserView: View {
 
                 VStack {
                     Text("Pressure")
-                    Text("\(Int(currentWeather.pressure)) hPa")
+                    Text("\(Int(currentWeather?.pressure ?? weatherDefault.pressure)) hPa")
                         .font(.title2)
                 }
                 .frame(maxWidth: .infinity)
@@ -98,46 +119,16 @@ struct WeatherBrowserView: View {
             .padding(.top, 20)
         }
         .padding()
-        .searchable(text: $searchText, prompt: "Buscar ciudad")  // Modificador searchable
-        .onSubmit(of: .search) {
-            searchForCity()
+//        .onSubmit(of: .search) {
+//            viewModel.getWeather(for: searchText)
+//        }
+        .onAppear {
+            viewModel.getWeather(for: "Boston")
         }
     }
 
-    // Simular la búsqueda de una nueva ciudad
-    func searchForCity() {
-        // Aquí puedes implementar tu lógica para actualizar el `currentWeather` con los datos de una nueva ciudad
-        // Por ahora, simplemente simula que has buscado "Nueva York" cambiando el mock
-
-        if searchText.lowercased() == "new york" {
-            currentWeather = WeatherModel(id: 1000,
-                                          name: "New York",
-                                          temp: 24,
-                                          iconImageUrl: "https://openweathermap.org/img/wn/04d@2x.png",
-                                          description: "overcast clouds",
-                                          maxTemp: 26,
-                                          minTemp: 20,
-                                          feelsLikeTemp: 25,
-                                          humidity: 65,
-                                          pressure: 1010)
-        } else if searchText.lowercased() == "miami" {
-            currentWeather = WeatherModel(id: 2000,
-                                          name: "Miami",
-                                          temp: 30,
-                                          iconImageUrl: "https://openweathermap.org/img/wn/02d@2x.png",
-                                          description: "few clouds",
-                                          maxTemp: 32,
-                                          minTemp: 28,
-                                          feelsLikeTemp: 33,
-                                          humidity: 80,
-                                          pressure: 1005)
-        } else {
-            // Si no encuentra la ciudad, resetea a un clima por defecto
-            currentWeather = weatherMock
-        }
-    }
 }
 
 #Preview {
-    WeatherBrowserView()
+    WeatherBrowserView(viewModel: weatherViewModelMock)
 }

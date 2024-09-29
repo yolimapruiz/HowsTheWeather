@@ -33,8 +33,10 @@ class AppCoordinator: AppCoordinating {
     func showMainScreen() {
         //show main screen
         
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .blue
+//        let viewController = UIViewController()
+//        viewController.view.backgroundColor = .blue
+        
+        let viewController = WeatherViewController()
         navigationController.pushViewController(viewController, animated: true)
     }
 }
