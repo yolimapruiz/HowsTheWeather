@@ -16,7 +16,7 @@ struct WeatherModel: Identifiable {
     var maxTemp: Double
     var minTemp: Double
     var feelsLikeTemp: Double
-    var humidity: Double
-    var pressure: Double
+    var humidity: Int
+    var pressure: Int
     
 }
