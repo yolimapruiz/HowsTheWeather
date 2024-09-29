@@ -10,7 +10,16 @@ import SwiftUI
 
 class WeatherViewController: UIViewController {
     
- //   var searchController = UISearchController!
+    var viewModel: WeatherViewModel
+    
+    init(viewModel: WeatherViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -19,7 +28,7 @@ class WeatherViewController: UIViewController {
     }
     
     func config(){
-        let weatherView = WeatherBrowserView(viewModel: weatherViewModelMock)
+        let weatherView = WeatherBrowserView(viewModel: self.viewModel)
         let hostingController = UIHostingController(rootView: weatherView)
         
         addChild(hostingController)
@@ -27,20 +36,5 @@ class WeatherViewController: UIViewController {
         view.addSubview(hostingController.view)
         hostingController.didMove(toParent: self)
     }
-    
-//    private func setupSearchBar() {
-//        searchController = UISearchController(searchResultsController: nil)
-//       
-//    }
 
 }
-
-//extension WeatherViewController: UISearchBarDelegate {
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        if let city = searchBar.text {
-//            print("\(city)")
-//        }
-//    }
-//}
-
-

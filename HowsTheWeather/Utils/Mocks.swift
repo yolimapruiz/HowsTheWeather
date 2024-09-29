@@ -29,4 +29,4 @@ let weatherDefault = WeatherModel(id: 0,
                                humidity: 0,
                                pressure: 0)
 
-let weatherViewModelMock = WeatherViewModel()
+let weatherViewModelMock = WeatherViewModel(repository: WeatherRepository(weatherMapper: WeatherMapper(), apiDataSource: APIWeatherDataSource(httpClient: URLSessionHTTPClient(requestMaker: URLSessionRequestMaker()))))

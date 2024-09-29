@@ -52,7 +52,9 @@ class AppCoordinator: AppCoordinating {
         }
         
         
-        let viewController = WeatherViewController()
+       // let viewController = WeatherViewController()
+        
+        let viewController = WeatherViewControllerFactory.create()
         navigationController.pushViewController(viewController, animated: true)
     }
 }

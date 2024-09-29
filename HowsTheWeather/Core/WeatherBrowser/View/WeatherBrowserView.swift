@@ -123,7 +123,7 @@ struct WeatherBrowserView: View {
 //            viewModel.getWeather(for: searchText)
 //        }
         .onAppear {
-            viewModel.getWeather(for: "Boston")
+            viewModel.getWeather(for: "Dallas")
         }
     }
 
