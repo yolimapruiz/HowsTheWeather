@@ -10,12 +10,17 @@ import Foundation
 class WeatherViewControllerFactory {
     
     static func create() -> WeatherViewController {
-        WeatherViewController(viewModel: createViewModel())
+        WeatherViewController(locationManager: createLocationManager() ,
+                              viewModel: createViewModel())
      
     }
     
+    private static func createLocationManager() -> LocationManagerType {
+        LocationManager()
+    }
+    
    private static func createViewModel() -> WeatherViewModel {
-        WeatherViewModel(repository: createRepository())
+       WeatherViewModel(repository: createRepository())
     }
     
     private static func createRepository() -> WeatherRepositoryType {

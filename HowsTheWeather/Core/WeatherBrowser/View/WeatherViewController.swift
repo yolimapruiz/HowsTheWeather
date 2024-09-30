@@ -7,13 +7,16 @@
 
 import UIKit
 import SwiftUI
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
     var viewModel: WeatherViewModel
+    let locationManager: LocationManagerType
     
-    init(viewModel: WeatherViewModel) {
+    init(locationManager: LocationManagerType, viewModel: WeatherViewModel) {
         self.viewModel = viewModel
+        self.locationManager = locationManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,17 +27,26 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         config()
     }
     
     func config(){
-        let weatherView = WeatherBrowserView(viewModel: self.viewModel)
-        let hostingController = UIHostingController(rootView: weatherView)
         
-        addChild(hostingController)
-        hostingController.view.frame = self.view.bounds
-        view.addSubview(hostingController.view)
-        hostingController.didMove(toParent: self)
+        Task {
+            let location = await locationManager.getUserLocation()
+            
+            let city = await
+            locationManager.resolveLocationName(with: location) ?? "Unknown"
+            let weatherView = WeatherBrowserView(viewModel: self.viewModel, initialCity: city)
+            let hostingController = UIHostingController(rootView: weatherView)
+            
+            addChild(hostingController)
+            hostingController.view.frame = self.view.bounds
+            view.addSubview(hostingController.view)
+            hostingController.didMove(toParent: self)
+        }
+        
     }
 
 }

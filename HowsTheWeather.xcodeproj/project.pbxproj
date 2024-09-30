@@ -10,6 +10,7 @@
 		95345FED2CA9FA7800D3CA41 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95345FEC2CA9FA7800D3CA41 /* URLSessionHTTPClient.swift */; };
 		95345FEF2CA9FB8700D3CA41 /* URLSessionRequestMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95345FEE2CA9FB8700D3CA41 /* URLSessionRequestMaker.swift */; };
 		95345FF12CAA08E500D3CA41 /* WeatherViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95345FF02CAA08E500D3CA41 /* WeatherViewControllerFactory.swift */; };
+		95345FF32CAA421A00D3CA41 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95345FF22CAA421A00D3CA41 /* LocationManager.swift */; };
 		95ECA35F2CA8986000726DC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA35E2CA8986000726DC8 /* AppDelegate.swift */; };
 		95ECA3612CA8986000726DC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA3602CA8986000726DC8 /* SceneDelegate.swift */; };
 		95ECA3682CA8986300726DC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95ECA3672CA8986300726DC8 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		95345FEC2CA9FA7800D3CA41 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		95345FEE2CA9FB8700D3CA41 /* URLSessionRequestMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionRequestMaker.swift; sourceTree = "<group>"; };
 		95345FF02CAA08E500D3CA41 /* WeatherViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewControllerFactory.swift; sourceTree = "<group>"; };
+		95345FF22CAA421A00D3CA41 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		95ECA35B2CA8986000726DC8 /* HowsTheWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowsTheWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95ECA35E2CA8986000726DC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95ECA3602CA8986000726DC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				95ECA3A12CA89CDB00726DC8 /* Mocks.swift */,
+				95345FF22CAA421A00D3CA41 /* LocationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				95ECA3B32CA9C29B00726DC8 /* WeatherMapper.swift in Sources */,
 				95ECA3BC2CA9D18900726DC8 /* HTTPClient.swift in Sources */,
 				95ECA39E2CA89C9300726DC8 /* WeatherModel.swift in Sources */,
+				95345FF32CAA421A00D3CA41 /* LocationManager.swift in Sources */,
 				95345FF12CAA08E500D3CA41 /* WeatherViewControllerFactory.swift in Sources */,
 				95ECA3BA2CA9CEAC00726DC8 /* APIWeatherDataSource.swift in Sources */,
 				95ECA3612CA8986000726DC8 /* SceneDelegate.swift in Sources */,

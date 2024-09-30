@@ -11,6 +11,7 @@ struct WeatherBrowserView: View {
     @StateObject var viewModel: WeatherViewModel
     
     @State private var searchText: String = ""
+    var initialCity: String
     
     private var currentWeather: WeatherModel? {
         viewModel.weather
@@ -119,16 +120,13 @@ struct WeatherBrowserView: View {
             .padding(.top, 20)
         }
         .padding()
-//        .onSubmit(of: .search) {
-//            viewModel.getWeather(for: searchText)
-//        }
         .onAppear {
-            viewModel.getWeather(for: "Dallas")
+            viewModel.getWeather(for: initialCity)
         }
     }
 
 }
 
 #Preview {
-    WeatherBrowserView(viewModel: weatherViewModelMock)
+    WeatherBrowserView(viewModel: weatherViewModelMock, initialCity: "Dallas")
 }
