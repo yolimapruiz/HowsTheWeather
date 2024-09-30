@@ -29,6 +29,9 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         config()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     func config(){
@@ -55,6 +58,10 @@ class WeatherViewController: UIViewController {
         if let hostingController = children.first as? UIHostingController<WeatherBrowserView> {
             hostingController.view.frame = self.view.bounds
         }
+    }
+    
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
     }
 
 }

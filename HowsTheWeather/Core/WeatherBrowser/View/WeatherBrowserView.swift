@@ -74,6 +74,7 @@ struct WeatherBrowserView: View {
             }
         }
     }
+
     
     // weather information (city name and temperature)
     private var weatherInfoColumn: some View {
