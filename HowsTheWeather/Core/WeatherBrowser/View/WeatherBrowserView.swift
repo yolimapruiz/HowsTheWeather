@@ -18,50 +18,83 @@ struct WeatherBrowserView: View {
     }
     
     var body: some View {
-        VStack {
+        GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
             
-            HStack{
-                Text("How's the Weather?")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top, 20)
-                
-                Spacer()
-            }
-            
-            HStack{
-                TextField("Search City", text: $searchText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                    .submitLabel(.search)
-                    .onSubmit {
-                        viewModel.getWeather(for: searchText)
-                    }
-                
-                Button(action: { 
-                    //searchForCity()
-                    viewModel.getWeather(for: searchText)
-                }) {
-                    Text("Search")
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+            VStack {
+                HStack {
+                    Text("How's the Weather?")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.top, 20)
+                    Spacer()
                 }
+                
+                HStack {
+                    TextField("Search City", text: $searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+                        .submitLabel(.search)
+                        .onSubmit {
+                            viewModel.getWeather(for: searchText)
+                        }
+                    
+                    Button(action: {
+                        viewModel.getWeather(for: searchText)
+                    }) {
+                        Text("Search")
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                }
+                
+                if isLandscape {
+                    // layout for landscape support
+                    HStack(alignment: .top) {
+                        weatherInfoColumn
+                        weatherDetailsColumn
+                    }
+                    .padding(.horizontal, 20)
+                } else {
+                    // layout for portrait support
+                    VStack {
+                        weatherInfoColumn
+                        weatherDetailsColumn
+                    }
+                    .padding(.horizontal, 20)
+                }
+                
             }
-            // City name
+            .padding()
+            .onAppear {
+                viewModel.getWeather(for: initialCity)
+            }
+        }
+    }
+    
+    // weather information (city name and temperature)
+    private var weatherInfoColumn: some View {
+        VStack {
+           
             Text(currentWeather?.name ?? weatherDefault.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 20)
 
-            // Temperature
             Text("\(Int(currentWeather?.temp ?? weatherDefault.temp))°F")
                 .font(.system(size: 70))
                 .fontWeight(.thin)
                 .foregroundColor(.red)
             
+        }
+    }
+    
+    // aditional weather information
+    private var weatherDetailsColumn: some View {
+        VStack {
             // weather icon and description
             HStack {
                 if let url = URL(string: currentWeather?.iconImageUrl ?? weatherDefault.iconImageUrl) {
@@ -78,8 +111,8 @@ struct WeatherBrowserView: View {
                     .font(.title3)
                     .foregroundColor(.green)
             }
-
-            // More info about the weather
+            
+            // Max and Min temperatura
             HStack {
                 Text("Max: \(Int(currentWeather?.maxTemp ?? weatherDefault.maxTemp))°F")
                     .font(.title3)
@@ -89,7 +122,7 @@ struct WeatherBrowserView: View {
             }
             .padding(.horizontal, 20)
 
-            // Sensación térmica
+            // Feels like
             VStack {
                 Text("Feels like")
                     .font(.headline)
@@ -119,14 +152,11 @@ struct WeatherBrowserView: View {
             }
             .padding(.top, 20)
         }
-        .padding()
-        .onAppear {
-            viewModel.getWeather(for: initialCity)
-        }
     }
-
 }
 
 #Preview {
     WeatherBrowserView(viewModel: weatherViewModelMock, initialCity: "Dallas")
+        .previewInterfaceOrientation(.portraitUpsideDown)
+       
 }

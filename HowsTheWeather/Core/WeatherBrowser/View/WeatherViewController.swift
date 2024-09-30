@@ -48,5 +48,19 @@ class WeatherViewController: UIViewController {
         }
         
     }
+    
+    
+    //making viewController support landscape mode
+    override func viewWillLayoutSubviews() {
+        if let hostingController = children.first as? UIHostingController<WeatherBrowserView> {
+            hostingController.view.frame = self.view.bounds
+        }
+    }
 
+}
+
+
+#Preview {
+    WeatherViewController(locationManager: LocationManager(),
+                          viewModel: weatherViewModelMock)
 }
