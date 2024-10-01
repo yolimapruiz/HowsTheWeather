@@ -103,3 +103,72 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationManagerType 
         manager.stopUpdatingLocation()
     }
 }
+
+
+
+//import Foundation
+//import CoreLocation
+//
+//protocol LocationManagerType {
+//    func getUserLocation() async -> CLLocation?
+//    func resolveLocationName(with location: CLLocation) async -> String?
+//}
+//
+//class LocationManager: NSObject, CLLocationManagerDelegate, LocationManagerType {
+//   
+//    let manager = CLLocationManager()
+//    
+//    private var locationContinuation: CheckedContinuation<CLLocation?, Never>?
+//    
+//    override init() {
+//        super.init()
+//        manager.delegate = self
+//    }
+//
+//    // function to get user location
+//    func getUserLocation() async -> CLLocation? {
+//        return await withCheckedContinuation { continuation in
+//            self.locationContinuation = continuation
+//            manager.requestWhenInUseAuthorization()
+//            
+//            // starts updating location
+//            manager.startUpdatingLocation()
+//        }
+//    }
+//    
+//    // Function to resolve the name of the city from the location 
+//    func resolveLocationName(with location: CLLocation) async -> String? {
+//        return await withCheckedContinuation { continuation in
+//            let geocoder = CLGeocoder()
+//            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+//                guard let place = placemarks?.first, error == nil else {
+//                    continuation.resume(returning: nil)
+//                    return
+//                }
+//                let city = place.locality ?? ""
+//                continuation.resume(returning: city)
+//            }
+//        }
+//    }
+//    
+//    // Delegate para obtener la ubicación actualizada
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let location = locations.first else {
+//            locationContinuation?.resume(returning: nil)
+//            locationContinuation = nil
+//            return
+//        }
+//        
+//        locationContinuation?.resume(returning: location)
+//        locationContinuation = nil
+//        
+//        // Detiene la actualización de la ubicación después de recibir la primera ubicación
+//        manager.stopUpdatingLocation()
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        // Si la obtención de la ubicación falla, se devuelve nil
+//        locationContinuation?.resume(returning: nil)
+//        locationContinuation = nil
+//    }
+//}

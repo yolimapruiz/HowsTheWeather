@@ -5,8 +5,10 @@
 //  Created by Yolima Pereira Ruiz on 29/09/24.
 //
 
-import Foundation
+import UIKit
 
 protocol HTTPClient {
     func makeRequest(endpoint: String, baseUrl: String) async -> Result<Data, DataError>
+    
+    func downloadImage(from urlString: String) async -> Data?
 }

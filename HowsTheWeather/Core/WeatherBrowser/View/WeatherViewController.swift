@@ -7,16 +7,13 @@
 
 import UIKit
 import SwiftUI
-import CoreLocation
 
 class WeatherViewController: UIViewController {
     
     var viewModel: WeatherViewModel
-    let locationManager: LocationManagerType
-    
-    init(locationManager: LocationManagerType, viewModel: WeatherViewModel) {
+  
+    init(viewModel: WeatherViewModel) {
         self.viewModel = viewModel
-        self.locationManager = locationManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,23 +32,15 @@ class WeatherViewController: UIViewController {
     }
     
     func config(){
-        
-        Task {
-            let location = await locationManager.getUserLocation()
-            
-            let city = await
-            locationManager.resolveLocationName(with: location) ?? "Unknown"
-            let weatherView = WeatherBrowserView(viewModel: self.viewModel, initialCity: city)
+  
+            let weatherView = WeatherBrowserView(viewModel: self.viewModel)
             let hostingController = UIHostingController(rootView: weatherView)
             
             addChild(hostingController)
             hostingController.view.frame = self.view.bounds
             view.addSubview(hostingController.view)
             hostingController.didMove(toParent: self)
-        }
-        
     }
-    
     
     //making viewController support landscape mode
     override func viewWillLayoutSubviews() {
@@ -68,6 +57,5 @@ class WeatherViewController: UIViewController {
 
 
 #Preview {
-    WeatherViewController(locationManager: LocationManager(),
-                          viewModel: weatherViewModelMock)
+    WeatherViewController(viewModel: weatherViewModelMock)
 }

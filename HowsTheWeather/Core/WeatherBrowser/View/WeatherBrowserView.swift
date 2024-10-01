@@ -4,14 +4,16 @@
 //
 //  Created by Yolima Pereira Ruiz on 28/09/24.
 //
+
+
 import SwiftUI
 
 struct WeatherBrowserView: View {
     
     @StateObject var viewModel: WeatherViewModel
-    
     @State private var searchText: String = ""
-    var initialCity: String
+    @State private var downloadedImage: UIImage?
+    //var initialCity: String
     
     private var currentWeather: WeatherModel? {
         viewModel.weather
@@ -70,7 +72,7 @@ struct WeatherBrowserView: View {
             }
             .padding()
             .onAppear {
-                viewModel.getWeather(for: initialCity)
+                viewModel.loadInitialWeather()
             }
         }
     }
@@ -93,27 +95,27 @@ struct WeatherBrowserView: View {
         }
     }
     
-    // aditional weather information
+    // additional weather information
     private var weatherDetailsColumn: some View {
         VStack {
             // weather icon and description
             HStack {
-                if let url = URL(string: currentWeather?.iconImageUrl ?? weatherDefault.iconImageUrl) {
-                    AsyncImage(url: url) { image in
-                        image
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                    } placeholder: {
-                        ProgressView()
-                    }
+                
+                if let imageData = currentWeather?.iconImageData, let uiImage = UIImage(data: imageData) {
+                    
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                } else {
+                    ProgressView()
                 }
-
-                Text(currentWeather?.description ?? weatherDefault.description)
-                    .font(.title3)
-                    .foregroundColor(.green)
             }
             
-            // Max and Min temperatura
+            Text(currentWeather?.description ?? weatherDefault.description)
+                .font(.title3)
+                .foregroundColor(.green)
+            
+            // Max and Min temperatures
             HStack {
                 Text("Max: \(Int(currentWeather?.maxTemp ?? weatherDefault.maxTemp))°F")
                     .font(.title3)
@@ -122,7 +124,7 @@ struct WeatherBrowserView: View {
                     .font(.title3)
             }
             .padding(.horizontal, 20)
-
+            
             // Feels like
             VStack {
                 Text("Feels like")
@@ -132,7 +134,7 @@ struct WeatherBrowserView: View {
                     .foregroundColor(.blue)
             }
             .padding(.top, 20)
-
+            
             // Humidity and pressure
             HStack {
                 VStack {
@@ -142,7 +144,7 @@ struct WeatherBrowserView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
-
+                
                 VStack {
                     Text("Pressure")
                     Text("\(Int(currentWeather?.pressure ?? weatherDefault.pressure)) hPa")
@@ -157,7 +159,7 @@ struct WeatherBrowserView: View {
 }
 
 #Preview {
-    WeatherBrowserView(viewModel: weatherViewModelMock, initialCity: "Dallas")
+    WeatherBrowserView(viewModel: weatherViewModelMock)
         .previewInterfaceOrientation(.portraitUpsideDown)
-       
+
 }

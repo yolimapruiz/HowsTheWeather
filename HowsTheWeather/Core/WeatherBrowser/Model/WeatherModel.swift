@@ -5,13 +5,13 @@
 //  Created by Yolima Pereira Ruiz on 28/09/24.
 //
 
-import Foundation
+import UIKit
 
-struct WeatherModel: Identifiable {
+struct WeatherModel: Identifiable, Codable {
     let id: Int
     var name: String
     var temp: Double
-    var iconImageUrl: String
+    var iconImageData: Data?
     var description: String
     var maxTemp: Double
     var minTemp: Double

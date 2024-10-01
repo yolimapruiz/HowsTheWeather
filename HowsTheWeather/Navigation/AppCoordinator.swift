@@ -33,27 +33,6 @@ class AppCoordinator: AppCoordinating {
     func showMainScreen() {
         //show main screen
         
-//        let viewController = UIViewController()
-//        viewController.view.backgroundColor = .blue
-        
-       let urlSession = URLSessionHTTPClient(requestMaker: URLSessionRequestMaker())
-       let aPIWeatherDataSource = APIWeatherDataSource(httpClient: urlSession)
-        
-        Task {
-            let a = await aPIWeatherDataSource.getWeatherDTO(for: "Austin")
-            
-            switch a {
-                
-            case .success(let weatherDTO):
-                print("weatherDTO: \(weatherDTO)")
-            case .failure(let error):
-                print("hay un error \(error)")
-            }
-        }
-        
-        
-       // let viewController = WeatherViewController()
-        
         let viewController = WeatherViewControllerFactory.create()
         navigationController.pushViewController(viewController, animated: true)
     }

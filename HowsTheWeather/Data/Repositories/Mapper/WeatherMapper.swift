@@ -8,12 +8,23 @@
 import Foundation
 
 struct WeatherMapper {
-    func map(weatherDTO: WeatherDTO) -> WeatherModel {
+    
+    var  uRLSessionHTTPClient :HTTPClient
+    
+    init(uRLSessionHTTPClient: HTTPClient) {
+        self.uRLSessionHTTPClient = uRLSessionHTTPClient
+    }
+    
+    func map(weatherDTO: WeatherDTO) async -> WeatherModel {
+        
+        
+        let downloadedImage = await uRLSessionHTTPClient.downloadImage(from: "https://openweathermap.org/img/wn/" + "\(weatherDTO.weather.first?.icon ?? "")" + "@2x.png")
+        
         
         let mappedWeather = WeatherModel(id: weatherDTO.id,
                                          name: weatherDTO.name,
                                          temp: kelvinToFahrenheit(weatherDTO.main.temp),
-                                         iconImageUrl: "https://openweathermap.org/img/wn/" + "\(weatherDTO.weather.first?.icon ?? "")" + "@2x.png",
+                                         iconImageData: downloadedImage,
                                          description: weatherDTO.weather.first?.description ?? "",
                                          maxTemp: kelvinToFahrenheit(weatherDTO.main.tempMax),
                                          minTemp: kelvinToFahrenheit(weatherDTO.main.tempMin),
@@ -29,6 +40,7 @@ struct WeatherMapper {
         let fahrenheit = (kelvin - 273.15) * 9/5 + 32
         return fahrenheit
     }
+    
     
 }
 

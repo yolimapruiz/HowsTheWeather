@@ -14,10 +14,30 @@ class WeatherViewModel: ObservableObject {
     init(repository: WeatherRepositoryType) {
         self.repository = repository
     }
-   
-    func getWeather( for city: String) {
-        
-        Task { @MainActor in
+    
+    func loadInitialWeather() {
+        Task {
+            
+            let result = await repository.getWeatherForCurrentLocation()
+            
+            DispatchQueue.main.async {
+                switch result {
+                    
+                case .success(let resultWeather):
+                    Task { @MainActor in
+                        self.weather = resultWeather
+                    }
+                case .failure(let error):
+                    print("Error fetching weather for location: \(error)")
+                }
+            }
+           
+        }
+    }
+    
+    func getWeather(for city: String) {
+        print("Estoy buscando el clima par la ciudad: \(city)")
+        Task {  @MainActor in
             
             let result = await repository.getWeather(for: city)
             

@@ -5,9 +5,10 @@
 //  Created by Yolima Pereira Ruiz on 29/09/24.
 //
 
-import Foundation
+import UIKit
 
 class URLSessionHTTPClient: HTTPClient {
+    
     private let session: URLSession
     private let requestMaker: URLSessionRequestMaker
     
@@ -40,5 +41,23 @@ class URLSessionHTTPClient: HTTPClient {
         }
     }
     
+}
+
+extension URLSessionHTTPClient {
     
+    //function to download weather icon from url
+    
+    func downloadImage(from urlString: String) async -> Data? {
+        guard let url = URL(string: urlString) else {
+            return nil
+        }
+        
+        do{
+            let (data, _) = try await session.data(from: url)
+            return data
+        } catch {
+            print("Could't download weather icon: \(error.localizedDescription)")
+            return nil
+        }
+    }
 }
