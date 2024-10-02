@@ -20,13 +20,13 @@
 		953460062CAC3DEF00D3CA41 /* WeatherMapperStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953460052CAC3DEF00D3CA41 /* WeatherMapperStub.swift */; };
 		953460082CAC4EE400D3CA41 /* Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953460072CAC4EE400D3CA41 /* Equatable.swift */; };
 		95D6894F2CAD0969008C5BF9 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6894E2CAD0969008C5BF9 /* String+Extension.swift */; };
+		95D689512CAD0E80008C5BF9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 95D689502CAD0E80008C5BF9 /* Localizable.xcstrings */; };
 		95ECA35F2CA8986000726DC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA35E2CA8986000726DC8 /* AppDelegate.swift */; };
 		95ECA3612CA8986000726DC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA3602CA8986000726DC8 /* SceneDelegate.swift */; };
 		95ECA3682CA8986300726DC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95ECA3672CA8986300726DC8 /* Assets.xcassets */; };
 		95ECA36B2CA8986300726DC8 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 95ECA36A2CA8986300726DC8 /* Base */; };
 		95ECA3762CA8986300726DC8 /* HowsTheWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA3752CA8986300726DC8 /* HowsTheWeatherTests.swift */; };
 		95ECA3802CA8986300726DC8 /* HowsTheWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA37F2CA8986300726DC8 /* HowsTheWeatherUITests.swift */; };
-		95ECA3822CA8986300726DC8 /* HowsTheWeatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA3812CA8986300726DC8 /* HowsTheWeatherUITestsLaunchTests.swift */; };
 		95ECA3902CA89B4400726DC8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA38F2CA89B4400726DC8 /* Coordinator.swift */; };
 		95ECA3922CA89B4F00726DC8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA3912CA89B4F00726DC8 /* AppCoordinator.swift */; };
 		95ECA39E2CA89C9300726DC8 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA39D2CA89C9300726DC8 /* WeatherModel.swift */; };
@@ -75,6 +75,7 @@
 		953460052CAC3DEF00D3CA41 /* WeatherMapperStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMapperStub.swift; sourceTree = "<group>"; };
 		953460072CAC4EE400D3CA41 /* Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equatable.swift; sourceTree = "<group>"; };
 		95D6894E2CAD0969008C5BF9 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		95D689502CAD0E80008C5BF9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		95ECA35B2CA8986000726DC8 /* HowsTheWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowsTheWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95ECA35E2CA8986000726DC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95ECA3602CA8986000726DC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		95ECA3752CA8986300726DC8 /* HowsTheWeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowsTheWeatherTests.swift; sourceTree = "<group>"; };
 		95ECA37B2CA8986300726DC8 /* HowsTheWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HowsTheWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95ECA37F2CA8986300726DC8 /* HowsTheWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowsTheWeatherUITests.swift; sourceTree = "<group>"; };
-		95ECA3812CA8986300726DC8 /* HowsTheWeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowsTheWeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		95ECA38F2CA89B4400726DC8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		95ECA3912CA89B4F00726DC8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		95ECA39D2CA89C9300726DC8 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
@@ -149,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				95ECA3672CA8986300726DC8 /* Assets.xcassets */,
+				95D689502CAD0E80008C5BF9 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -222,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				95ECA37F2CA8986300726DC8 /* HowsTheWeatherUITests.swift */,
-				95ECA3812CA8986300726DC8 /* HowsTheWeatherUITestsLaunchTests.swift */,
 			);
 			path = HowsTheWeatherUITests;
 			sourceTree = "<group>";
@@ -451,6 +451,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"es-419",
 			);
 			mainGroup = 95ECA3522CA8986000726DC8;
 			productRefGroup = 95ECA35C2CA8986000726DC8 /* Products */;
@@ -471,6 +472,7 @@
 			files = (
 				95ECA3682CA8986300726DC8 /* Assets.xcassets in Resources */,
 				95ECA36B2CA8986300726DC8 /* Base in Resources */,
+				95D689512CAD0E80008C5BF9 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,7 +542,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95ECA3822CA8986300726DC8 /* HowsTheWeatherUITestsLaunchTests.swift in Sources */,
 				95ECA3802CA8986300726DC8 /* HowsTheWeatherUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,7 +625,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -681,7 +682,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

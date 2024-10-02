@@ -1,0 +1,133 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld degrees Fahrenheit" : {
+
+    },
+    "%lld hPa" : {
+
+    },
+    "%lld percent" : {
+
+    },
+    "%lld%%" : {
+
+    },
+    "%lld°F" : {
+
+    },
+    "An error has occurred" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ha ocurrido un error"
+          }
+        }
+      }
+    },
+    "City Name" : {
+
+    },
+    "Enter the name of city and press search" : {
+
+    },
+    "Feels like" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensación termica"
+          }
+        }
+      }
+    },
+    "Feels like temperature" : {
+
+    },
+    "Fetch the weather for the entered city" : {
+
+    },
+    "How's the Weather?" : {
+
+    },
+    "Humidity" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "humedad"
+          }
+        }
+      }
+    },
+    "Max: %lld°F" : {
+
+    },
+    "Maximum temperature" : {
+
+    },
+    "Min: %lld°F" : {
+
+    },
+    "Minimum temperature" : {
+
+    },
+    "Ok" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
+    },
+    "Pressure" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presión"
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        }
+      }
+    },
+    "Search button" : {
+
+    },
+    "Search city" : {
+
+    },
+    "Search City" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar Ciudad"
+          }
+        }
+      }
+    },
+    "Temperature" : {
+
+    },
+    "Weather description" : {
+
+    },
+    "Weather icon" : {
+
+    }
+  },
+  "version" : "1.0"
+}

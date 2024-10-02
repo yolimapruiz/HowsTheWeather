@@ -13,8 +13,6 @@ struct WeatherBrowserView: View {
     @StateObject var viewModel: WeatherViewModel
     @State private var searchText: String = ""
     @State private var downloadedImage: UIImage?
-    @State private var showError: Bool = false
-    //var initialCity: String
     
     private var currentWeather: WeatherModel? {
         viewModel.weather
@@ -30,6 +28,7 @@ struct WeatherBrowserView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding(.top, 20)
+                        .accessibilityAddTraits(.isHeader)
                     Spacer()
                 }
                 
@@ -42,6 +41,8 @@ struct WeatherBrowserView: View {
                             viewModel.getWeather(for: searchText)
                             searchText = ""
                         }
+                        .accessibilityLabel("Search city")
+                        .accessibilityHint("Enter the name of city and press search")
                     
                     Button(action: {
                         viewModel.getWeather(for: searchText)
@@ -55,6 +56,8 @@ struct WeatherBrowserView: View {
                             .foregroundColor(.white)
                             .cornerRadius(8)
                     }
+                    .accessibilityLabel("Search button")
+                    .accessibilityHint("Fetch the weather for the entered city")
                 }
                 
                 if isLandscape {
@@ -87,6 +90,8 @@ struct WeatherBrowserView: View {
                 viewModel.loadInitialWeather()
             }
             
+            .listStyle(PlainListStyle())
+            
         }
     }
 
@@ -99,11 +104,15 @@ struct WeatherBrowserView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 20)
+                .accessibilityLabel("City Name")
+                .accessibilityValue(currentWeather?.name ?? weatherDefault.name)
 
             Text("\(Int(currentWeather?.temp ?? weatherDefault.temp))°F")
                 .font(.system(size: 70))
                 .fontWeight(.thin)
                 .foregroundColor(.red)
+                .accessibilityLabel("Temperature")
+                .accessibilityValue("\(Int(currentWeather?.temp ?? weatherDefault.temp)) degrees Fahrenheit")
             
         }
     }
@@ -119,6 +128,7 @@ struct WeatherBrowserView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .frame(width: 50, height: 50)
+                        .accessibilityLabel("Weather icon")
                 } else {
                     ProgressView()
                 }
@@ -127,14 +137,21 @@ struct WeatherBrowserView: View {
             Text(currentWeather?.description ?? weatherDefault.description)
                 .font(.title3)
                 .foregroundColor(.green)
+                .accessibilityLabel("Weather description")
+                .accessibilityValue(currentWeather?.description ?? weatherDefault.description)
             
             // Max and Min temperatures
             HStack {
                 Text("Max: \(Int(currentWeather?.maxTemp ?? weatherDefault.maxTemp))°F")
                     .font(.title3)
+                    .accessibilityLabel("Maximum temperature")
+                    .accessibilityValue("\(Int(currentWeather?.maxTemp ?? weatherDefault.maxTemp)) degrees Fahrenheit")
+                
                 Spacer()
                 Text("Min: \(Int(currentWeather?.minTemp ?? weatherDefault.minTemp))°F")
                     .font(.title3)
+                    .accessibilityLabel("Minimum temperature")
+                    .accessibilityValue("\(Int(currentWeather?.minTemp ?? weatherDefault.minTemp)) degrees Fahrenheit")
             }
             .padding(.horizontal, 20)
             
@@ -142,9 +159,12 @@ struct WeatherBrowserView: View {
             VStack {
                 Text("Feels like")
                     .font(.headline)
+                    .accessibilityLabel("Feels like temperature")
+                
                 Text("\(Int(currentWeather?.feelsLikeTemp ?? weatherDefault.feelsLikeTemp))°F")
                     .font(.system(size: 50))
                     .foregroundColor(.blue)
+                    .accessibilityValue("\(Int(currentWeather?.feelsLikeTemp ?? weatherDefault.feelsLikeTemp)) degrees Fahrenheit")
             }
             .padding(.top, 20)
             
@@ -154,6 +174,8 @@ struct WeatherBrowserView: View {
                     Text("Humidity")
                     Text("\(Int(currentWeather?.humidity ?? weatherDefault.humidity))%")
                         .font(.title2)
+                        .accessibilityLabel("Humidity")
+                        .accessibilityValue("\(Int(currentWeather?.humidity ?? weatherDefault.humidity)) percent")
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -162,6 +184,8 @@ struct WeatherBrowserView: View {
                     Text("Pressure")
                     Text("\(Int(currentWeather?.pressure ?? weatherDefault.pressure)) hPa")
                         .font(.title2)
+                        .accessibilityLabel("Pressure")
+                        .accessibilityValue("\(Int(currentWeather?.pressure ?? weatherDefault.pressure)) hPa")
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -171,8 +195,12 @@ struct WeatherBrowserView: View {
     }
 }
 
-#Preview {
+#Preview("English") {
     WeatherBrowserView(viewModel: weatherViewModelMock)
-        .previewInterfaceOrientation(.portraitUpsideDown)
+        .environment(\.locale, Locale(identifier: "EN"))
+}
 
+#Preview("Spanish") {
+    WeatherBrowserView(viewModel: weatherViewModelMock)
+        .environment(\.locale, Locale(identifier: "ES"))
 }
