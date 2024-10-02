@@ -17,7 +17,6 @@ final class WeatherRepositoryTests: XCTestCase {
         //given
         
         let expectedWeather = WeatherModel.makeWeatherModelExpected()
-        print("ExpectedWeather, \(expectedWeather)")
         
         let (sut, _) = makeSUT(apiDataSourceResult: .success(WeatherDTO.makeLocationWeatherDTO()),
                                cachedValue: nil)
@@ -28,8 +27,7 @@ final class WeatherRepositoryTests: XCTestCase {
         //then
         let weather = try XCTUnwrap(result.get())
         
-        print("DEBUG: \(weather) ")
-      //  XCTAssertEqual(expectedWeather, weather)
+    
         XCTAssertEqual(expectedWeather, weather)
         
         

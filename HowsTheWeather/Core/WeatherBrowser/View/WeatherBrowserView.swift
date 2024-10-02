@@ -5,12 +5,12 @@
 //  Created by Yolima Pereira Ruiz on 28/09/24.
 //
 
-
 import SwiftUI
 
 struct WeatherBrowserView: View {
     
     @StateObject var viewModel: WeatherViewModel
+   
     @State private var searchText: String = ""
     @State private var downloadedImage: UIImage?
     
@@ -34,6 +34,7 @@ struct WeatherBrowserView: View {
                 
                 HStack {
                     TextField("Search City", text: $searchText)
+                        .accessibilityIdentifier("search_city_identifier")
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal)
                         .submitLabel(.search)
@@ -50,6 +51,7 @@ struct WeatherBrowserView: View {
                         
                     }) {
                         Text("Search")
+                            .accessibilityIdentifier("search_button_identifier")
                             .padding(.horizontal)
                             .padding(.vertical, 8)
                             .background(Color.blue)
@@ -195,9 +197,11 @@ struct WeatherBrowserView: View {
     }
 }
 
+
 #Preview("English") {
+    
     WeatherBrowserView(viewModel: weatherViewModelMock)
-        .environment(\.locale, Locale(identifier: "EN"))
+            .environment(\.locale, Locale(identifier: "EN"))
 }
 
 #Preview("Spanish") {

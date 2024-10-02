@@ -10,8 +10,7 @@ import Foundation
 class WeatherViewModel: ObservableObject {
     @Published var weather: WeatherModel? = nil
     @Published var ErrorMessage: String? = nil
-    
-    
+
     private let repository: WeatherRepositoryType
     
     init(repository: WeatherRepositoryType) {
@@ -20,7 +19,7 @@ class WeatherViewModel: ObservableObject {
     
     func loadInitialWeather() {
         Task {
-            
+           
             let result = await repository.getWeatherForCurrentLocation()
             
             DispatchQueue.main.async {
@@ -31,6 +30,9 @@ class WeatherViewModel: ObservableObject {
                         self.weather = resultWeather
                     }
                 case .failure(let error):
+                    Task { @MainActor in
+                        self.ErrorMessage = "Error fetching weather for location"
+                    }
                     print("Error fetching weather for location: \(error)")
                 }
             }
@@ -39,7 +41,7 @@ class WeatherViewModel: ObservableObject {
     }
     
     func getWeather(for city: String) {
-        print("Estoy buscando el clima par la ciudad: \(city)")
+       
         Task {  @MainActor in
             
             let result = await repository.getWeather(for: city)
@@ -54,7 +56,7 @@ class WeatherViewModel: ObservableObject {
                     }
                     
                 case .failure(let error):
-                    print("Error fetching weather aaa: \(error.description)")
+                    print("Error fetching weather : \(error.description)")
                     self.handleError(error: error)
                 }
             }

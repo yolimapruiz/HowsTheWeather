@@ -7,18 +7,6 @@
 
 import Foundation
 
-//enum DataError: String, Error {
-//    
-//    
-//    case dataError = "Please enter a valid city "
-//    case decodingError = "Decoding error: Unable to decode the response."
-//    case URLError = "URL error: The URL is invalid or unreachable."
-//    case networkError = "Network error: Unable to connect to the internet."
-//    case apiError = "API error: The server responded with an error."
-//    case otherError(Error) = "Other error occurred"
-//    
-//}
-
 enum DataError: Error {
     case dataError
     case decodingError
@@ -33,8 +21,6 @@ extension DataError: Equatable {
         lhs.localizedDescription == rhs.localizedDescription
         && lhs.description == rhs.description
     }
-    
-    
 }
 
 extension DataError: CustomStringConvertible {

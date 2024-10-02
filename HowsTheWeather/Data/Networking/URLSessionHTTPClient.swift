@@ -40,7 +40,6 @@ class URLSessionHTTPClient: HTTPClient {
             return .failure(.otherError(error))
         }
     }
-    
 }
 
 extension URLSessionHTTPClient: HTTPClientImage {

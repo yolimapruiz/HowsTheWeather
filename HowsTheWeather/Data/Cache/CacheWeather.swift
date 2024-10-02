@@ -18,7 +18,6 @@ class CacheWeather: CacheWeatherType {
             if let lastWeather = try? decoder.decode(WeatherModel.self, from: data) {
                 return lastWeather
             }
-            
         }
         return nil
     }

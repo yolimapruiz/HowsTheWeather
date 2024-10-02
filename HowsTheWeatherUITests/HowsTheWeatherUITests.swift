@@ -10,15 +10,16 @@ import XCTest
 final class HowsTheWeatherUITests: XCTestCase {
 
    
-
     func test_Search_weather_in_Dallas() throws {
         
         let app = XCUIApplication()
         app.launch()
-        app.textFields["Buscar Ciudad"].tap()
-        app.textFields["Buscar Ciudad"].typeText("Dallas")
+        let titleTextField = app.textFields.matching(identifier: "search_city_identifier").firstMatch
+        titleTextField.tap()
+        titleTextField.typeText("Dallas")
         
-        app.buttons["Buscar"].tap()
+        let titleButtonSearch = app.buttons.matching(identifier:  "search_button_identifier").firstMatch
+        titleButtonSearch.tap()
                
     }
     
@@ -26,10 +27,12 @@ final class HowsTheWeatherUITests: XCTestCase {
         
         let app = XCUIApplication()
         app.launch()
-        app.textFields["Buscar Ciudad"].tap()
-        app.textFields["Buscar Ciudad"].typeText("Miami")
+        let titleTextField = app.textFields.matching(identifier: "search_city_identifier").firstMatch
+        titleTextField.tap()
+        titleTextField.typeText("Miami")
         
-        app.buttons["Buscar"].tap()
+        let titleButtonSearch = app.buttons.matching(identifier:  "search_button_identifier").firstMatch
+        titleButtonSearch.tap()
                
     }
 

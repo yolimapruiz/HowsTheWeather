@@ -43,4 +43,7 @@ let weatherDefault = WeatherModel(id: 0,
 
 let URLSessionHTTPClientMock = URLSessionHTTPClient(requestMaker: URLSessionRequestMaker())
 
-let weatherViewModelMock = WeatherViewModel(repository: WeatherRepository(weatherMapper: WeatherMapper(uRLSessionHTTPClient: URLSessionHTTPClientMock), apiDataSource: APIWeatherDataSource(httpClient: URLSessionHTTPClientMock), cacheDataSource: CacheWeather(), locationManager: LocationManager()))
+let repositoryMock = WeatherRepository(weatherMapper: WeatherMapper(uRLSessionHTTPClient: URLSessionHTTPClientMock), apiDataSource: APIWeatherDataSource(httpClient: URLSessionHTTPClientMock), cacheDataSource: CacheWeather(), locationManager: LocationManager())
+
+let weatherViewModelMock = WeatherViewModel(repository: repositoryMock)
+
