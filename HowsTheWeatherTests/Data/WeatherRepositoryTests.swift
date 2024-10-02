@@ -165,9 +165,132 @@ final class WeatherRepositoryTests: XCTestCase {
         XCTAssertEqual(error, DataError.decodingError)
     }
     
+    func test_getWeatherForCity_returns_success_when_api_returns_valid_data() async throws {
+        
+        //given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        
+        let(sut, _) = makeSUT(apiDataSourceResult: .success(WeatherDTO.makeWeatherSimulation()),
+                              cachedValue: nil)
+        
+        //when
+        let result = await sut.getWeather(for: expectedWeather.name)
+        
+        //then
+        let weather = try XCTUnwrap(result.get())
+        
+        XCTAssertEqual(expectedWeather, weather)
+        
+        
+    }
+    
+    func test_getWeatherForCity_saves_in_cache_when_cache_is_empty_and_gets_data_from_api() async throws {
+        
+        //Given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        let (sut, cacheDatasource) = makeSUT(apiDataSourceResult: .success(WeatherDTO.makeWeatherSimulation()),
+                               cachedValue: nil)
+        
+        //When
+        _ = await sut.getWeather(for: expectedWeather.name)
+        
+        //Then
+        XCTAssertEqual(cacheDatasource.cachedWeather, expectedWeather)
+    }
+    
+    func test_getWeatherForCity_returns_failure_when_badUrl_when_the_cache_is_empty() async throws {
+    
+        //given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        let (sut, _) = makeSUT(apiDataSourceResult: .failure(.URLError),
+                               cachedValue: nil)
+        //When
+        let result = await sut.getWeather(for: expectedWeather.name)
+        
+        //Then
+        guard case .failure(let error) = result else {
+            XCTFail("Expected failure, got success")
+            return
+        }
+        
+        XCTAssertEqual(error, DataError.URLError)
+
+    }
+    
+    func test_getWeatherFority_returns_failure_when_ApiError_when_the_cache_is_empty() async throws {
+        //given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        let (sut, _) = makeSUT(apiDataSourceResult: .failure(.apiError),
+                               cachedValue: nil)
+        
+        //When
+        let result = await sut.getWeather(for: expectedWeather.name)
+        
+        //Then
+        guard case .failure(let error) = result else {
+            XCTFail("Expected failure, got success")
+            return
+        }
+        
+        XCTAssertEqual(error, DataError.apiError)
+    }
+    
+    func test_getWeatherForCity_returns_failure_when_DataError_when_the_cache_is_empty() async throws {
+        //given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        let (sut, _) = makeSUT(apiDataSourceResult: .failure(.dataError),
+                               cachedValue: nil)
+        
+        //When
+        let result = await sut.getWeather(for: expectedWeather.name)
+        
+        //Then
+        guard case .failure(let error) = result else {
+            XCTFail("Expected failure, got success")
+            return
+        }
+        
+        XCTAssertEqual(error, DataError.dataError)
+    }
+    
+    func test_getWeatherForCity_returns_failure_when_NetworkError_when_the_cache_is_empty() async throws {
+        //given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        let (sut, _) = makeSUT(apiDataSourceResult: .failure(.networkError),
+                               cachedValue: nil)
+        
+        //When
+        let result = await sut.getWeather(for: expectedWeather.name)
+        
+        //Then
+        guard case .failure(let error) = result else {
+            XCTFail("Expected failure, got success")
+            return
+        }
+        
+        XCTAssertEqual(error, DataError.networkError)
+    }
+    
+    func test_getWeatherForCity_returns_failure_when_DecodingError_when_the_cache_is_empty() async throws {
+        //given
+        let expectedWeather = WeatherModel.makeWeatherModel()
+        let (sut, _) = makeSUT(apiDataSourceResult: .failure(.decodingError),
+                               cachedValue: nil)
+        
+        //When
+        let result = await sut.getWeather(for: expectedWeather.name)
+        
+        //Then
+        guard case .failure(let error) = result else {
+            XCTFail("Expected failure, got success")
+            return
+        }
+        
+        XCTAssertEqual(error, DataError.decodingError)
+    }
+    
     private func makeSUT(apiDataSourceResult: Result<WeatherDTO, DataError>, cachedValue: WeatherModel?) -> (sut: WeatherRepository, cache: CacheDataSourceStub){
         
-        //let apiDataSource = apiDataSourceStub(weather: .success(weatherDTO))
         
         let apiDataSource = apiDataSourceStub(weather: apiDataSourceResult)
         let cacheDataSource = CacheDataSourceStub(getWeather: cachedValue)
@@ -181,7 +304,6 @@ final class WeatherRepositoryTests: XCTestCase {
        
        let  uRLSessionHTTPClientImage = URLSessionHTTPClientImage()
         let weatherMapper = WeatherMapper(uRLSessionHTTPClient: uRLSessionHTTPClientImage)
-      //  let weatherMapper = WeatherMapperStub(getWeather: WeatherModel.makeWeatherModel())
         
         let sut = WeatherRepository(weatherMapper: weatherMapper,
                                     apiDataSource: apiDataSource,
@@ -256,7 +378,7 @@ extension WeatherModel {
     
     static func makeWeatherModel() -> WeatherModel {
         
-        let weather = WeatherModel(id: 4164138,
+        let weather = WeatherModel(id: 4184138,
                                    name: "Miami",
                                    temp: 103,
                                    description: "broken clouds",
