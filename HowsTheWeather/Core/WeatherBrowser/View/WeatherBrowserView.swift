@@ -13,6 +13,7 @@ struct WeatherBrowserView: View {
     @StateObject var viewModel: WeatherViewModel
     @State private var searchText: String = ""
     @State private var downloadedImage: UIImage?
+    @State private var showError: Bool = false
     //var initialCity: String
     
     private var currentWeather: WeatherModel? {
@@ -39,10 +40,13 @@ struct WeatherBrowserView: View {
                         .submitLabel(.search)
                         .onSubmit {
                             viewModel.getWeather(for: searchText)
+                            searchText = ""
                         }
                     
                     Button(action: {
                         viewModel.getWeather(for: searchText)
+                        searchText = ""
+                        
                     }) {
                         Text("Search")
                             .padding(.horizontal)
@@ -71,9 +75,18 @@ struct WeatherBrowserView: View {
                 
             }
             .padding()
+            .alert(item: $viewModel.ErrorMessage) { errorMessage in
+                
+                Alert(title: Text("An error has occurred"),
+                                  message: Text(errorMessage), dismissButton: .default(Text("Ok")))
+            }
+            
+            
+            
             .onAppear {
                 viewModel.loadInitialWeather()
             }
+            
         }
     }
 

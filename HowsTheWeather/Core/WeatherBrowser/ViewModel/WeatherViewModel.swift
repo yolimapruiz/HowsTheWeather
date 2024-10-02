@@ -9,6 +9,9 @@ import Foundation
 
 class WeatherViewModel: ObservableObject {
     @Published var weather: WeatherModel? = nil
+    @Published var ErrorMessage: String? = nil
+    
+    
     private let repository: WeatherRepositoryType
     
     init(repository: WeatherRepositoryType) {
@@ -51,11 +54,20 @@ class WeatherViewModel: ObservableObject {
                     }
                     
                 case .failure(let error):
-                    print("Error fetching weather: \(error.localizedDescription)")
+                    print("Error fetching weather aaa: \(error.description)")
+                    self.handleError(error: error)
                 }
             }
             
         }
        
+    }
+    
+    private func handleError(error: DataError?) {
+        if let error = error {
+            if error == DataError.dataError {
+                ErrorMessage = error.description
+            }
+        }
     }
 }
