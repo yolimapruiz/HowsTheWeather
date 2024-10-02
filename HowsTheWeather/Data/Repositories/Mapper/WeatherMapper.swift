@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct WeatherMapper {
+protocol WeatherMapperType {
+    func map(weatherDTO: WeatherDTO) async -> WeatherModel
+}
+
+struct WeatherMapper: WeatherMapperType {
     
-    var  uRLSessionHTTPClient :HTTPClient
+    var  uRLSessionHTTPClient: HTTPClientImage
     
-    init(uRLSessionHTTPClient: HTTPClient) {
+    init(uRLSessionHTTPClient: HTTPClientImage) {
         self.uRLSessionHTTPClient = uRLSessionHTTPClient
     }
     

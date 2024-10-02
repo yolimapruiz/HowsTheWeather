@@ -16,13 +16,13 @@ protocol WeatherRepositoryType {
 
 class WeatherRepository: WeatherRepositoryType {
     
-    private let weatherMapper: WeatherMapper
+    private let weatherMapper: WeatherMapperType
     private let apiDataSource: ApiDataSourceType
     private let cacheDataSource: CacheWeatherType
     private let locationManager: LocationManagerType
     
     
-    init(weatherMapper: WeatherMapper, apiDataSource: ApiDataSourceType, cacheDataSource: CacheWeatherType, locationManager: LocationManagerType ) {
+    init(weatherMapper: WeatherMapperType, apiDataSource: ApiDataSourceType, cacheDataSource: CacheWeatherType, locationManager: LocationManagerType ) {
         self.weatherMapper = weatherMapper
         self.apiDataSource = apiDataSource
         self.cacheDataSource = cacheDataSource
@@ -46,42 +46,13 @@ class WeatherRepository: WeatherRepositoryType {
             return .success(mappedWeather)
         }
     
-//    func getWeatherForCurrentLocation(location: String) async -> Result<WeatherModel, DataError> {
-//
-////        let result: Result<WeatherDTO, DataError> = await apiDataSource.getWeatherDTO(for: "\(location.coordinate.latitude), \(location.coordinate.longitude)")
-//        
-//               let cachedWeather = await cacheDataSource.getWeather()
-//        
-//        if cachedWeather?.name != nil {
-//                    print("entro aqui")
-//        
-//                    return .success(cachedWeather ?? weatherMock)
-//                }
-//        
-//        let result: Result<WeatherDTO, DataError> = await apiDataSource.getWeatherDTO(for: location)
-//        
-//        guard case .success(let weatherDTO) = result else {
-//            return .failure(result.failureCase as! DataError)
-//        }
-//        
-//        let mappedWeather = await weatherMapper.map(weatherDTO: weatherDTO)
-//        
-//        //save in the cache
-//        await cacheDataSource.saveLastWeatherSearched(for: mappedWeather)
-//        
-//        return .success(mappedWeather)
-//
-//    }
-    
     
     func getWeatherForCurrentLocation() async -> Result<WeatherModel, DataError> {
         
         
         let cachedWeather = await cacheDataSource.getWeather()
  
- if cachedWeather?.name != nil {
-             print("entro aqui")
- 
+        if cachedWeather?.name != nil {
              return .success(cachedWeather ?? weatherMock)
          }
         

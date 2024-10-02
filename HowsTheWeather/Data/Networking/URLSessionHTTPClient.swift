@@ -43,7 +43,7 @@ class URLSessionHTTPClient: HTTPClient {
     
 }
 
-extension URLSessionHTTPClient {
+extension URLSessionHTTPClient: HTTPClientImage {
     
     //function to download weather icon from url
     

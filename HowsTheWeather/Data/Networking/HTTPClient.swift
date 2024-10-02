@@ -9,6 +9,9 @@ import UIKit
 
 protocol HTTPClient {
     func makeRequest(endpoint: String, baseUrl: String) async -> Result<Data, DataError>
-    
+}
+
+
+protocol HTTPClientImage {
     func downloadImage(from urlString: String) async -> Data?
 }
